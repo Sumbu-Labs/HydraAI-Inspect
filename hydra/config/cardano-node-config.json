@@ -1,0 +1,6 @@
+{
+  "NetworkName": "Preview",
+  "ByronGenesisFile": "byron-genesis.json",
+  "ShelleyGenesisFile": "shelley-genesis.json",
+  "AlonzoGenesisFile": "alonzo-genesis.json"
+}

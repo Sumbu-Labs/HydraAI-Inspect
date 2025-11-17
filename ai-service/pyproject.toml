@@ -1,0 +1,20 @@
+[project]
+name = "ai-service"
+version = "0.1.0"
+description = "FastAPI microservice for HydraAI Inspect"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi",
+  "pydantic",
+  "uvicorn",
+  "numpy",
+  "torch",
+  "ultralytics"
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
+[tool.uvicorn]
+factory = false
+app = "src.main:app"

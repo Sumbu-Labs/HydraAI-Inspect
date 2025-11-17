@@ -1,0 +1,27 @@
+# Node
+node_modules/
+dist/
+build/
+.pnpm-store/
+coverage/
+.vite/
+.DS_Store
+.env*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env/
+
+# AI models
+ai-service/src/models/*.pt
+ai-service/src/models/*.onnx
+
+# Hydra
+hydra/config/*.backup
+hydra/scripts/*.log
+
+# IDE
+.idea/
+.vscode/

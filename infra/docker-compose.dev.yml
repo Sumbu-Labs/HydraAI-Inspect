@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: infra/docker/backend.Dockerfile
+    ports:
+      - '4000:4000'
+    environment:
+      HYDRA_URL: http://hydra:4001
+      AI_SERVICE_URL: http://ai-service:8000
+  frontend:
+    build:
+      context: ..
+      dockerfile: infra/docker/frontend.Dockerfile
+    ports:
+      - '5173:80'
+  ai-service:
+    build:
+      context: ..
+      dockerfile: infra/docker/ai-service.Dockerfile
+    ports:
+      - '8000:8000'
+  hydra:
+    build:
+      context: ..
+      dockerfile: infra/docker/hydra-node.Dockerfile
+    ports:
+      - '4001:4001'

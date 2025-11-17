@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  backend:
+    image: hydraai/backend:latest
+    environment:
+      NODE_ENV: production
+  frontend:
+    image: hydraai/frontend:latest
+    ports:
+      - '80:80'
+  ai-service:
+    image: hydraai/ai-service:latest
+    environment:
+      MODEL_PATH: /models/yolov8.pt
