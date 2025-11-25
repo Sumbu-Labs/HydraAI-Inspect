@@ -1,8 +1,8 @@
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY ../../package.json ../../pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* ./
 RUN corepack enable && pnpm install --ignore-scripts
-COPY ../../backend ./backend
+COPY backend ./backend
 WORKDIR /app/backend
 RUN pnpm install && pnpm build
 

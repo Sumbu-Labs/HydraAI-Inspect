@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Inspection {
+  id            String           @id @default(uuid())
+  vehicleLabel  String?
+  plate         String
+  vin           String
+  status        InspectionStatus @default(PENDING_UPLOAD)
+  score         Int?
+  totalDamages  Int?
+  avgConfidence Float?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  images   InspectionImage[]
+  damages  InspectionDamage[]
+  vctToken VctToken?
+}
+
+model InspectionImage {
+  id           String     @id @default(uuid())
+  inspection   Inspection @relation(fields: [inspectionId], references: [id], onDelete: Cascade)
+  inspectionId String
+  url          String
+  orderIndex   Int
+}
+
+model InspectionDamage {
+  id           String         @id @default(uuid())
+  inspection   Inspection     @relation(fields: [inspectionId], references: [id], onDelete: Cascade)
+  inspectionId String
+  imageId      String?
+  clazz        DamageClass
+  severity     DamageSeverity
+  confidence   Float
+  location     String?
+  bbox         Json?
+}
+
+model VctToken {
+  id           String     @id @default(uuid())
+  inspection   Inspection @relation(fields: [inspectionId], references: [id], onDelete: Cascade)
+  inspectionId String     @unique
+  policyId     String
+  assetName    String
+  txHash       String
+  network      String
+  mintedAt     DateTime   @default(now())
+  metadata     Json
+}
+
+enum InspectionStatus {
+  PENDING_UPLOAD
+  PENDING_AI
+  ANALYZED
+  MINTED
+}
+
+enum DamageClass {
+  shattered_glass
+  flat_tire
+  broken_lamp
+  dent
+  scratch
+  crack
+}
+
+enum DamageSeverity {
+  LOW
+  MEDIUM
+  HIGH
+}

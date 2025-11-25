@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "description": "HydraAI Inspect monorepo tooling",
   "scripts": {
+    "dev": "docker compose -f infra/docker-compose.dev.yml up --build",
+    "prod": "docker compose -f infra/docker-compose.prod.yml up --build -d",
     "lint": "echo 'run lint via package scripts'",
     "format": "prettier --check .",
     "format:write": "prettier --write ."

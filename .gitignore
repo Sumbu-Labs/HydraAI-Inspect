@@ -1,27 +1,108 @@
-# Node
+# ===========================
+# Dependencies
+# ===========================
 node_modules/
-dist/
-build/
 .pnpm-store/
-coverage/
-.vite/
-.DS_Store
-.env*
+pnpm-lock.yaml
 
+# ===========================
 # Python
+# ===========================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
 .venv/
 .env/
+ENV/
+env.bak/
+venv.bak/
+yolo_env/
+*_env/
 
-# AI models
-ai-service/src/models/*.pt
-ai-service/src/models/*.onnx
+# Python build artifacts
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
 
+# ===========================
+# Node.js / JavaScript
+# ===========================
+dist/
+build/
+coverage/
+.vite/
+.next/
+.turbo/
+out/
+*.tsbuildinfo
+
+# ===========================
+# Environment & Config
+# ===========================
+.env
+.env.*
+!.env.example
+!.env.template
+
+# ===========================
+# AI Models & Data
+*.weights
+*.h5
+*.pkl
+*.pth
+
+# ===========================
+# Uploads & User Data
+# ===========================
+backend/uploads/
+uploads/
+*.upload
+
+# ===========================
+# Database
+# ===========================
+*.db
+*.sqlite
+*.sqlite3
+
+# ===========================
 # Hydra
+# ===========================
 hydra/config/*.backup
 hydra/scripts/*.log
 
-# IDE
+# ===========================
+# IDE & Editors
+# ===========================
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ===========================
+# Logs
+# ===========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ===========================
+# OS
+# ===========================
+.DS_Store
+Thumbs.db
+Desktop.ini

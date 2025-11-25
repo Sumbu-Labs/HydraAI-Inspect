@@ -1,0 +1,7 @@
+{
+  "name": "HydraAI Inspect",
+  "description": "AI-powered vehicle inspection and blockchain tokenization platform built on Cardano’s Hydra L2.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

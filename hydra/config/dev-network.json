@@ -1,0 +1,16 @@
+{
+    "network": "devnet",
+    "magic": 42,
+    "nodes": [
+        {
+            "id": "node-1",
+            "host": "localhost",
+            "port": 4001,
+            "apiPort": 4002
+        }
+    ],
+    "head": {
+        "contestPeriod": 10,
+        "maxTxSize": 16384
+    }
+}

@@ -1,4 +1,5 @@
 version: '3.9'
+
 services:
   backend:
     build:
@@ -6,24 +7,81 @@ services:
       dockerfile: infra/docker/backend.Dockerfile
     ports:
       - '4000:4000'
+    env_file:
+      - ../backend/.env
     environment:
-      HYDRA_URL: http://hydra:4001
-      AI_SERVICE_URL: http://ai-service:8000
-  frontend:
-    build:
-      context: ..
-      dockerfile: infra/docker/frontend.Dockerfile
-    ports:
-      - '5173:80'
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/hydra_inspect?schema=public
+    depends_on:
+      - postgres
+      - ai-service
+    networks:
+      - hydra-net
+
   ai-service:
     build:
       context: ..
       dockerfile: infra/docker/ai-service.Dockerfile
     ports:
       - '8000:8000'
+    env_file:
+      - ../ai-service/.env
+    networks:
+      - hydra-net
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: infra/docker/frontend.Dockerfile
+    ports:
+      - '5173:5173'
+    env_file:
+      - ../frontend-app/.env
+    environment:
+      - VITE_API_BASE_URL=http://localhost:4000/api
+    depends_on:
+      - backend
+    networks:
+      - hydra-net
+
+  landing-page:
+    build:
+      context: ..
+      dockerfile: infra/docker/landing-page.Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - VITE_APP_URL=http://localhost:5173
+    networks:
+      - hydra-net
+
   hydra:
     build:
       context: ..
       dockerfile: infra/docker/hydra-node.Dockerfile
     ports:
       - '4001:4001'
+    volumes:
+      - ../hydra/config:/app/config
+      - ../hydra/scripts:/app/scripts
+    networks:
+      - hydra-net
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=hydra_inspect
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hydra-net
+
+networks:
+  hydra-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

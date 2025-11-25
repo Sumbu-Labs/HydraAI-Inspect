@@ -38,16 +38,66 @@ flowchart LR
 - **Cardano Node (Testnet)** – Mints CIP-68 Vehicle Condition Tokens, persisting the final metadata hash plus the IPFS/B2 references.
 - **Storage (IPFS / Backblaze)** – Stores the raw vehicle photos and the JSON inspection reports; the resulting CID/URL is embedded inside the minted token metadata.
 
-## Quickstart (Dev)
+## Quickstart
 
+### Option 1: With Docker Compose (Recommended for Production)
+
+#### Development
 ```bash
-# 1. Clone repo
+# Clone repo
 git clone https://github.com/Sumbu-Labs/HydraAI-Inspect.git
 cd HydraAI-Inspect
 
-# 2. Start services (dev)
+# Start all services in development mode (hot-reload enabled)
 docker compose -f infra/docker-compose.dev.yml up --build
 ```
+
+#### Production
+```bash
+# Start all services in production mode (optimized builds)
+docker compose -f infra/docker-compose.prod.yml up --build -d
+```
+
+### Option 2: Without Docker (Recommended for Development)
+
+**Quick Start:**
+```bash
+# 1. Setup environment variables (interactive)
+./scripts/setup-env.sh
+
+# 2. Install dependencies
+pnpm install
+cd backend && pnpm install && cd ..
+cd frontend-app && pnpm install && cd ..
+cd landing-page && pnpm install && cd ..
+cd ai-service && pip install . && cd ..
+
+# 3. Setup database
+cd backend
+pnpm db:generate
+pnpm db:migrate
+cd ..
+
+# 4. Start all services (opens in separate terminal tabs)
+./start-all.sh
+
+# 5. Check services status
+./scripts/check-services.sh
+
+# 6. Stop all services when done
+./stop-all.sh
+```
+
+**Service URLs:**
+- Landing Page: http://localhost:3000
+- Frontend App: http://localhost:3001
+- Backend API: http://localhost:4000
+- AI Service: http://localhost:8000
+- AI Docs: http://localhost:8000/docs
+
+**Detailed Guide:** See [docs/running-without-docker.md](docs/running-without-docker.md) for complete setup instructions, troubleshooting, and environment variables reference.
+
+---
 
 More details in [docs/overview.md](docs/overview.md)
 
