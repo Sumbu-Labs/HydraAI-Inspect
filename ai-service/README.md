@@ -52,6 +52,21 @@ docker build -t hydra-ai-service .
 docker run -p 8000:8000 -v $(pwd)/models:/app/models hydra-ai-service
 ```
 
+### Deployment on Coolify
+
+1.  **Source**: Connect your Git repository to Coolify.
+2.  **Build Pack**: Select **Dockerfile**.
+3.  **Environment Variables**: Add the following variables in the Coolify dashboard:
+    *   `YOLO_MODEL_PATH=./models/car_damage_yolo.pt`
+    *   `MAX_IMAGES_PER_REQUEST=6`
+    *   `CONFIDENCE_THRESHOLD=0.4`
+    *   `CORS_ORIGINS=https://your-frontend-domain.com` (or `*` for testing)
+    *   `LOG_LEVEL=INFO`
+4.  **Port Mapping**: Set the internal port to `8000`.
+5.  **Deploy**: Click "Deploy".
+
+> **Note:** Ensure `models/car_damage_yolo.pt` is committed to your git repository.
+
 ## 📡 API Endpoints
 
 ### Health Check

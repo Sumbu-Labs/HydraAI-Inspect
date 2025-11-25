@@ -15,8 +15,8 @@ RUN pip install --no-cache-dir .
 # Copy application code
 COPY src/ .
 
-# Create directory for models
-RUN mkdir -p models
+# Copy models
+COPY models/ ./models/
 
 # Expose port
 EXPOSE 8000
