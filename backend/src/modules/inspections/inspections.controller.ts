@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { inspectionService } from './inspections.service';
-import { AppError } from '../../middleware/errorHandler';
+import { inspectionService } from './inspections.service.js';
+import { AppError } from '../../middleware/errorHandler.js';
 
 class InspectionController {
     async create(req: Request, res: Response, next: NextFunction) {

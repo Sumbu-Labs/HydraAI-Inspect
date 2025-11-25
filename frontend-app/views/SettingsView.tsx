@@ -25,7 +25,7 @@ export const SettingsView: React.FC = () => {
       {/* General Settings */}
       <div className="space-y-4">
         <h3 className="text-sm text-gray-400 uppercase font-bold tracking-wider pl-2">Development</h3>
-        
+
         <GlassCard className="flex justify-between items-center">
           <div>
             <p className="font-medium">Mock Mode</p>
@@ -47,7 +47,7 @@ export const SettingsView: React.FC = () => {
       {/* Info */}
       <div className="space-y-4 mt-8">
         <h3 className="text-sm text-gray-400 uppercase font-bold tracking-wider pl-2">About</h3>
-        
+
         <GlassCard className="space-y-4">
           <div className="flex items-center gap-3 text-sm text-gray-300">
             <Info className="w-4 h-4" />
@@ -59,7 +59,7 @@ export const SettingsView: React.FC = () => {
           </div>
         </GlassCard>
 
-        <Button variant="outline" className="w-full gap-2">
+        <Button variant="outline" className="w-full gap-2" onClick={() => window.open('https://github.com/Sumbu-Labs/HydraAI-Inspect', '_blank')}>
           <Github className="w-4 h-4" /> View Source
         </Button>
       </div>

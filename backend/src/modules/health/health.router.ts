@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../../db';
-import { aiService } from '../ai/ai.service';
+import { prisma } from '../../db/index.js';
+import { aiService } from '../ai/ai.service.js';
 
 const router = Router();
 

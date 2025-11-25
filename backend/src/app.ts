@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import { requestLogger } from './middleware/requestLogger';
-import { errorHandler } from './middleware/errorHandler';
-import { notFound } from './middleware/notFound';
+import { requestLogger } from './middleware/requestLogger.js';
+import { errorHandler } from './middleware/errorHandler.js';
+import { notFound } from './middleware/notFound.js';
 
 // Routers
-import healthRouter from './modules/health/health.router';
-import inspectionRouter from './modules/inspections/inspections.router';
+import healthRouter from './modules/health/health.router.js';
+import inspectionRouter from './modules/inspections/inspections.router.js';
 
 export function createApp() {
     const app = express();

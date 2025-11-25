@@ -14,7 +14,8 @@ export const UploadView: React.FC<UploadViewProps> = ({ onNext, isAnalyzing = fa
   const [previews, setPreviews] = useState<string[]>([]);
   const [step, setStep] = useState(1);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -28,9 +29,10 @@ export const UploadView: React.FC<UploadViewProps> = ({ onNext, isAnalyzing = fa
   };
 
   const handleAddImage = (source: 'camera' | 'gallery') => {
-    if (fileInputRef.current) {
-      // For now, both trigger file input. In a real mobile app, 'camera' would trigger camera API
-      fileInputRef.current.click();
+    if (source === 'camera' && cameraInputRef.current) {
+      cameraInputRef.current.click();
+    } else if (source === 'gallery' && galleryInputRef.current) {
+      galleryInputRef.current.click();
     }
   };
 
@@ -57,9 +59,20 @@ export const UploadView: React.FC<UploadViewProps> = ({ onNext, isAnalyzing = fa
 
   return (
     <div className="max-w-2xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500 pb-40">
+      {/* Camera Input - triggers device camera */}
       <input
         type="file"
-        ref={fileInputRef}
+        ref={cameraInputRef}
+        className="hidden"
+        accept="image/*"
+        capture="environment"
+        onChange={handleFileSelect}
+      />
+
+      {/* Gallery Input - opens file picker */}
+      <input
+        type="file"
+        ref={galleryInputRef}
         className="hidden"
         accept="image/*"
         multiple

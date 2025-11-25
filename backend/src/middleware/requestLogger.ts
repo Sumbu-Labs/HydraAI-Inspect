@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { env } from '../config/env';
+import { env } from '../config/env.js';
 
 export const requestLogger = (req: Request, res: Response, next: NextFunction) => {
     if (env.NODE_ENV === 'development') {

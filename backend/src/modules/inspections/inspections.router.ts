@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { inspectionController } from './inspections.controller';
-import { upload } from '../../middleware/upload';
+import { inspectionController } from './inspections.controller.js';
+import { upload } from '../../middleware/upload.js';
 
 const router = Router();
 

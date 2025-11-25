@@ -1,14 +1,14 @@
-import { prisma } from '../../db';
-import { aiService } from '../ai/ai.service';
-import { AppError } from '../../middleware/errorHandler';
-import { env } from '../../config/env';
+import { prisma } from '../../db/index.js';
+import { aiService } from '../ai/ai.service.js';
+import { AppError } from '../../middleware/errorHandler.js';
+import { env } from '../../config/env.js';
 import {
     CreateInspectionDTO,
     AddImageDTO,
     InspectionWithRelations,
     DamageClass,
     DamageSeverity
-} from './inspections.model';
+} from './inspections.model.js';
 import { InspectionStatus } from '@prisma/client';
 
 class InspectionService {
