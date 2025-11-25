@@ -39,7 +39,7 @@ const Footer = () => {
             </div>
 
             <div className="flex gap-4">
-               <a href="#" className="text-gray-400 hover:text-white transition-colors"><Twitter size={20} /></a>
+               <a href="https://x.com/SumbuLabs" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors"><Twitter size={20} /></a>
                <a href="https://github.com/Sumbu-Labs/HydraAI-Inspect" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors"><Github size={20} /></a>
                <a href="#" className="text-gray-400 hover:text-white transition-colors"><Disc size={20} /></a> {/* Discord proxy */}
             </div>
