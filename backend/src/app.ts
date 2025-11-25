@@ -12,7 +12,16 @@ export function createApp() {
     const app = express();
 
     // Middleware
-    app.use(cors());
+    app.use(cors({
+        origin: [
+            'https://localhost:3000',
+            'https://localhost:3001',
+            'https://hydra-ai.sumbu.xyz',
+            'https://ai-service.hydra-ai.sumbu.xyz',
+            'https://app.hydra-ai.sumbu.xyz',
+        ],
+        credentials: true,
+    }));
     app.use(express.json());
     app.use('/uploads', express.static('uploads')); // Serve uploaded files
     app.use(requestLogger);

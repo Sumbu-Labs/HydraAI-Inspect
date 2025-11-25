@@ -6,6 +6,7 @@ dotenv.config();
 const envSchema = z.object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     PORT: z.string().transform(Number).pipe(z.number().positive()).default('4000'),
+    BASE_URL: z.string().url().optional().default('http://localhost:4000'),
     DATABASE_URL: z.string().url('DATABASE_URL must be a valid PostgreSQL connection string'),
     AI_SERVICE_URL: z.string().url('AI_SERVICE_URL must be a valid URL').default('http://localhost:8000'),
     STORAGE_BASE_URL: z.string().url().optional().or(z.literal('')),

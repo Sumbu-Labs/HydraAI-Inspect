@@ -82,7 +82,7 @@ class InspectionService {
             const imageUrls = inspection.images.map((img) => {
                 // Convert local path to full URL if needed
                 if (img.url.startsWith('/uploads/')) {
-                    return `http://localhost:${env.PORT}${img.url}`;
+                    return `${env.BASE_URL}${img.url}`;
                 }
                 return img.url;
             });

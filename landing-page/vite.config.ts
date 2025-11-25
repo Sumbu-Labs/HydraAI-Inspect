@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       host: '0.0.0.0',
       allowedHosts: [
-        'hydra-ai-inspect.sumbu.xyz',
+        'hydra-ai.sumbu.xyz',
         'localhost',
         '127.0.0.1'
       ],
