@@ -17,7 +17,7 @@ const Footer = () => {
                Ready to modernize vehicle inspection?
             </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-               <Button variant="primary" onClick={() => window.open('http://localhost:3001', '_blank')}>Launch App</Button>
+               <Button variant="primary" onClick={() => window.open('https://app.hydra-ai.sumbu.xyz/', '_blank')}>Launch App</Button>
                <a href="https://github.com/Sumbu-Labs/HydraAI-Inspect" target="_blank" rel="noreferrer">
                   <Button variant="outline" icon={Github}>Open Source</Button>
                </a>

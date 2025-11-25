@@ -47,7 +47,7 @@ const Navbar = () => {
             <a href="https://github.com/Sumbu-Labs/HydraAI-Inspect" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
               <Github className="w-5 h-5" />
             </a>
-            <a href="http://localhost:3001" target="_blank" rel="noreferrer">
+            <a href="https://app.hydra-ai.sumbu.xyz/" target="_blank" rel="noreferrer">
               <Button variant="secondary" className="!py-2 !px-4 text-sm">Launch App</Button>
             </a>
           </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
               </a>
             ))}
             <div className="pt-4 flex flex-col gap-3 px-3">
-              <Button variant="secondary" className="w-full justify-center">Launch App</Button>
+              <Button variant="secondary" className="w-full justify-center" onClick={() => window.open('https://app.hydra-ai.sumbu.xyz/', '_blank')}>Launch App</Button>
             </div>
           </div>
         </div>
