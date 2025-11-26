@@ -48,8 +48,9 @@ uvicorn app.main:app --reload --port 8000
 ### Docker
 
 ```bash
-docker build -t hydra-ai-service .
-docker run -p 8000:8000 -v $(pwd)/models:/app/models hydra-ai-service
+docker build -t maulanaanjari/hydra-ai-engine:latest .
+docker push maulanaanjari/hydra-ai-engine:latest
+docker run -p 8000:8000 maulanaanjari/hydra-ai-engine:latest
 ```
 
 ### Deployment on Coolify
