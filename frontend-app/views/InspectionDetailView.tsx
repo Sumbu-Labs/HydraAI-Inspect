@@ -350,7 +350,7 @@ export const InspectionDetailView: React.FC<InspectionDetailViewProps> = ({
           <Button variant="outline" className="flex-1 gap-2 text-cyan border-cyan/30 hover:bg-cyan/10" onClick={onReRun}>
             <RefreshCw className="w-4 h-4" /> Re-run Analysis
           </Button>
-          <Button variant="ghost" className="gap-2 text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={onDelete}>
+          <Button variant="ghost" className="gap-2 text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={() => onDelete()}>
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>

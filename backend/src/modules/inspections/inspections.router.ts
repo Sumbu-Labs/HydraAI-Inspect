@@ -22,4 +22,7 @@ router.get('/:id', inspectionController.getOne.bind(inspectionController));
 // GET /api/inspections - List all inspections
 router.get('/', inspectionController.list.bind(inspectionController));
 
+// DELETE /api/inspections/:id - Delete inspection
+router.delete('/:id', inspectionController.delete.bind(inspectionController));
+
 export default router;

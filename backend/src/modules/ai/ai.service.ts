@@ -62,7 +62,7 @@ class AIService {
         inspectionId: string,
         plate: string,
         vin: string,
-        images: File[] | string[]
+        images: (File | Blob | string)[]
     ): Promise<AnalysisResult> {
         try {
             const formData = new FormData();
@@ -75,11 +75,15 @@ class AIService {
                 if (typeof image === 'string') {
                     // If image is URL, send as string
                     formData.append('imageUrls', image);
+                    console.log(`DEBUG: Appended imageUrl: ${image}`);
                 } else {
-                    // If image is File, append directly
+                    // If image is File or Blob, append directly
                     formData.append('images', image, `image_${index}.jpg`);
+                    console.log(`DEBUG: Appended file/blob image`);
                 }
             });
+
+            console.log('DEBUG: Sending request to AI Service:', `${this.baseURL}/analyze`);
 
             const response = await fetch(`${this.baseURL}/analyze`, {
                 method: 'POST',

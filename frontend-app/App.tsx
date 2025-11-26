@@ -1,25 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Layout } from './components/Layout';
-import { Button } from './components/UI';
+import { Button, Modal } from './components/UI';
 import { OnboardingView } from './views/OnboardingView';
 import { UploadView } from './views/UploadView';
 import { AnalysisView } from './views/AnalysisView';
 import { ResultView } from './views/ResultView';
 import { TokenView } from './views/TokenView';
-import { HistoryView } from './views/HistoryView';
+import { HistoryViewComponent as HistoryView } from './views/HistoryView';
 import { SettingsView } from './views/SettingsView';
 import { InspectionDetailView } from './views/InspectionDetailView';
 import { LoadingView } from './views/LoadingView';
 import { AppView, InspectionRecord, Damage, DamageSeverity, VehicleInfo, DamageType } from './types';
-import { inspectionApi, Inspection } from './api/inspections';
+import { inspectionApi, Inspection } from './services/inspections';
 import { useToast } from './components/Toast';
 
 // Inner App Component to use the hook
 const HydraInspectApp = () => {
   const [currentView, setCurrentView] = useState<AppView>(AppView.ONBOARDING);
   const [activeInspectionId, setActiveInspectionId] = useState<string | null>(null);
+  const [deleteConfirmationId, setDeleteConfirmationId] = useState<string | null>(null);
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
@@ -69,6 +69,18 @@ const HydraInspectApp = () => {
       queryClient.invalidateQueries({ queryKey: ['inspections'] });
       queryClient.invalidateQueries({ queryKey: ['inspection'] });
     },
+  });
+
+  const deleteInspectionMutation = useMutation({
+    mutationFn: inspectionApi.delete,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['inspections'] });
+      showToast('Inspection deleted successfully', 'success');
+    },
+    onError: (error) => {
+      console.error('Delete failed:', error);
+      showToast('Failed to delete inspection', 'error');
+    }
   });
 
   // Derived State
@@ -138,10 +150,27 @@ const HydraInspectApp = () => {
     }
   };
 
-  const handleDeleteInspection = () => {
-    // Reset state
-    setActiveInspectionId(null);
-    setCurrentView(AppView.ONBOARDING);
+  const handleDeleteInspection = (id?: string) => {
+    const targetId = id || activeInspectionId;
+    if (targetId) {
+      setDeleteConfirmationId(targetId);
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteConfirmationId) return;
+
+    try {
+      await deleteInspectionMutation.mutateAsync(deleteConfirmationId);
+
+      if (deleteConfirmationId === activeInspectionId) {
+        setActiveInspectionId(null);
+        setCurrentView(AppView.HISTORY);
+      }
+      setDeleteConfirmationId(null);
+    } catch (error) {
+      // Error handled in mutation
+    }
   };
 
   const handleReRunAnalysis = async () => {
@@ -252,6 +281,29 @@ const HydraInspectApp = () => {
   return (
     <Layout currentView={currentView} onChangeView={setCurrentView}>
       {renderView()}
+
+      <Modal
+        isOpen={!!deleteConfirmationId}
+        onClose={() => setDeleteConfirmationId(null)}
+        title="Delete Inspection"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setDeleteConfirmationId(null)}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              className="bg-red-500 hover:bg-red-600 border-none shadow-none"
+              onClick={confirmDelete}
+              isLoading={deleteInspectionMutation.isPending}
+            >
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <p>Are you sure you want to delete this inspection? This action cannot be undone.</p>
+      </Modal>
     </Layout>
   );
 };

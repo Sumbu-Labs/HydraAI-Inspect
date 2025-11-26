@@ -118,6 +118,18 @@ class InspectionController {
             next(error);
         }
     }
+
+    async delete(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+
+            await inspectionService.deleteInspection(id);
+
+            res.status(204).send();
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export const inspectionController = new InspectionController();

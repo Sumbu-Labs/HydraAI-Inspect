@@ -71,4 +71,8 @@ export const inspectionApi = {
         const response = await api.post<{ status: string; data: Inspection }>(`/inspections/${id}/mint`);
         return response.data.data;
     },
+
+    delete: async (id: string) => {
+        await api.delete(`/inspections/${id}`);
+    },
 };

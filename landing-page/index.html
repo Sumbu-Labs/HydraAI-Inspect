@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HydraAI Inspect - Blockchain Verified Vehicle Inspection</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              cardano: '#0033AD',
-              cyan: {
-                400: '#46F0FF',
-                500: '#00C2FF',
-              },
-              navy: {
-                900: '#0A0F24',
-                800: '#111835',
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HydraAI Inspect - Blockchain Verified Vehicle Inspection</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cardano: '#0033AD',
+            cyan: {
+              400: '#46F0FF',
+              500: '#00C2FF',
             },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              heading: ['Space Grotesk', 'sans-serif'],
+            navy: {
+              900: '#0A0F24',
+              800: '#111835',
             }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Space Grotesk', 'sans-serif'],
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #0A0F24;
-        color: #ffffff;
-        overflow-x: hidden;
-      }
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(70, 240, 255, 0.1);
-      }
-      .neon-glow {
-        box-shadow: 0 0 20px rgba(70, 240, 255, 0.15);
-      }
-      .text-gradient {
-        background: linear-gradient(to right, #46F0FF, #0033AD);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    </style>
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0A0F24;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(70, 240, 255, 0.1);
+    }
+
+    .neon-glow {
+      box-shadow: 0 0 20px rgba(70, 240, 255, 0.15);
+    }
+
+    .text-gradient {
+      background: linear-gradient(to right, #46F0FF, #0033AD);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -62,10 +73,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

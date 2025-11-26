@@ -1,4 +1,5 @@
 import React from 'react';
+// Force rebuild
 import { ChevronRight, Search, Trash2 } from 'lucide-react';
 import { GlassCard } from '../components/UI';
 import { InspectionRecord } from '../types';
@@ -12,7 +13,7 @@ interface HistoryViewProps {
   onDelete: (id: string) => void;
 }
 
-export const HistoryView: React.FC<HistoryViewProps> = ({ inspections, onSelect, onDelete }) => {
+export const HistoryViewComponent: React.FC<HistoryViewProps> = ({ inspections, onSelect, onDelete }) => {
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 pb-24">
       <div className="sticky top-0 z-30 bg-[#0A0F24]/95 backdrop-blur-xl pt-2 pb-4 border-b border-white/5 -mx-4 px-4 md:mx-0 md:px-0 md:static md:border-none md:bg-transparent">
@@ -84,9 +85,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ inspections, onSelect,
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (window.confirm(`Delete inspection for ${inspection.vehicle.label}?`)) {
-                      onDelete(inspection.id);
-                    }
+                    onDelete(inspection.id);
                   }}
                   className="p-2 rounded-lg hover:bg-red-500/10 text-gray-600 hover:text-red-400 transition-colors"
                   title="Delete inspection"

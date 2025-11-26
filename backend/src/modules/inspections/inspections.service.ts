@@ -1,4 +1,6 @@
 import { prisma } from '../../db/index.js';
+import fs from 'fs/promises';
+import path from 'path';
 import { aiService } from '../ai/ai.service.js';
 import { AppError } from '../../middleware/errorHandler.js';
 import { env } from '../../config/env.js';
@@ -79,13 +81,24 @@ class InspectionService {
 
         try {
             // Call AI service
-            const imageUrls = inspection.images.map((img) => {
-                // Convert local path to full URL if needed
+            // Call AI service
+            const imagePayloads = await Promise.all(inspection.images.map(async (img) => {
+                // Convert local path to Blob if needed
                 if (img.url.startsWith('/uploads/')) {
-                    return `${env.BASE_URL}${img.url}`;
+                    try {
+                        const filePath = path.join(process.cwd(), img.url);
+                        const buffer = await fs.readFile(filePath);
+                        return new Blob([buffer], { type: 'image/jpeg' });
+                    } catch (err) {
+                        console.error(`Failed to read file ${img.url}:`, err);
+                        return `${env.BASE_URL}${img.url}`;
+                    }
                 }
                 return img.url;
-            });
+            }));
+
+            console.log('DEBUG: Analyzing inspection', inspectionId);
+            console.log('DEBUG: Image payloads count:', imagePayloads.length);
 
             // We pass empty strings for plate/vin as they are already in DB
             // In a real scenario, we might want to pass them if AI service needs them for VCT
@@ -93,7 +106,7 @@ class InspectionService {
                 inspectionId,
                 inspection.plate,
                 inspection.vin,
-                imageUrls
+                imagePayloads
             );
 
             // Map AI detections to damages
@@ -248,6 +261,35 @@ class InspectionService {
         });
 
         return updated;
+    }
+
+    async deleteInspection(inspectionId: string) {
+        const inspection = await prisma.inspection.findUnique({
+            where: { id: inspectionId },
+            include: { images: true },
+        });
+
+        if (!inspection) {
+            throw new AppError(404, 'Inspection not found');
+        }
+
+        // Delete images from filesystem
+        for (const image of inspection.images) {
+            if (image.url.startsWith('/uploads/')) {
+                const filePath = path.join(process.cwd(), image.url);
+                try {
+                    await fs.unlink(filePath);
+                } catch (error) {
+                    console.error(`Failed to delete file: ${filePath}`, error);
+                    // Continue deleting other files and the record even if one file fails
+                }
+            }
+        }
+
+        // Delete from database
+        await prisma.inspection.delete({
+            where: { id: inspectionId },
+        });
     }
 
     private calculateSeverity(confidence: number): DamageSeverity {

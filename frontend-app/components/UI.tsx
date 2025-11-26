@@ -140,3 +140,36 @@ export const BottomDrawer: React.FC<{
     </div>
   );
 };
+
+export const Modal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
+}> = ({ isOpen, onClose, title, children, footer }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
+        onClick={onClose}
+      />
+
+      {/* Modal Content */}
+      <div className="relative w-full max-w-md bg-[#0A0F24] border border-white/10 rounded-2xl p-6 shadow-[0_0_50px_rgba(0,51,173,0.3)] animate-in zoom-in-95 duration-200 ring-1 ring-white/10">
+        {title && <h3 className="text-xl font-display font-bold text-white mb-4">{title}</h3>}
+        <div className="text-gray-300 mb-6">
+          {children}
+        </div>
+        {footer && (
+          <div className="flex justify-end gap-3">
+            {footer}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
