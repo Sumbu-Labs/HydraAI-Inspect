@@ -8,9 +8,6 @@
     "lib": [
       "ES2022"
     ],
-    "types": [
-      "node"
-    ],
     "moduleResolution": "NodeNext",
     "rootDir": "./src",
     "outDir": "./dist",
