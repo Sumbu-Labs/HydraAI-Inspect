@@ -82,23 +82,25 @@ class InspectionService {
         try {
             // Call AI service
             // Call AI service
-            const imagePayloads = await Promise.all(inspection.images.map(async (img) => {
-                // Convert local path to Blob if needed
+            console.log('DEBUG: [v2] Starting analysis for inspection', inspectionId);
+            console.log('DEBUG: CWD is', process.cwd());
+
+            const imageUrls = await Promise.all(inspection.images.map(async (img) => {
+                // Check if file exists locally
                 if (img.url.startsWith('/uploads/')) {
+                    const localPath = path.join(process.cwd(), img.url.substring(1)); // Remove leading slash
                     try {
-                        const filePath = path.join(process.cwd(), img.url);
-                        const buffer = await fs.readFile(filePath);
-                        return new Blob([buffer], { type: 'image/jpeg' });
-                    } catch (err) {
-                        console.error(`Failed to read file ${img.url}:`, err);
-                        return `${env.BASE_URL}${img.url}`;
+                        await fs.access(localPath);
+                        console.log(`DEBUG: File exists at ${localPath}`);
+                    } catch (e) {
+                        console.error(`DEBUG: File MISSING at ${localPath}`);
                     }
+                    return `${env.BASE_URL}${img.url}`;
                 }
                 return img.url;
             }));
 
-            console.log('DEBUG: Analyzing inspection', inspectionId);
-            console.log('DEBUG: Image payloads count:', imagePayloads.length);
+            console.log('DEBUG: Image URLs:', imageUrls);
 
             // We pass empty strings for plate/vin as they are already in DB
             // In a real scenario, we might want to pass them if AI service needs them for VCT
@@ -106,7 +108,7 @@ class InspectionService {
                 inspectionId,
                 inspection.plate,
                 inspection.vin,
-                imagePayloads
+                imageUrls
             );
 
             // Map AI detections to damages
