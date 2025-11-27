@@ -2,7 +2,19 @@ import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { prisma } from './db/index.js';
 
+import fs from 'fs';
+import path from 'path';
+
 const app = createApp();
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+    console.log(`📂 Created uploads directory at ${uploadsDir}`);
+} else {
+    console.log(`📂 Uploads directory exists at ${uploadsDir}`);
+}
 
 const server = app.listen(env.PORT, () => {
     console.log(`🚀 Server running on port ${env.PORT}`);
