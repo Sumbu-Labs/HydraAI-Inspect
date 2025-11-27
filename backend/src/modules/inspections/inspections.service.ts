@@ -112,12 +112,12 @@ class InspectionService {
             );
 
             // Map AI detections to damages
-            const damages = analysisResult.damages.map((damage) => ({
+            const damages = analysisResult.damages.map((d) => ({
                 inspectionId,
-                clazz: damage.class as DamageClass,
-                severity: damage.severity as DamageSeverity,
-                confidence: damage.confidence,
-                bbox: damage.bbox,
+                clazz: d.class as any, // Map 'class' from AI to 'clazz' in DB. Cast to any to avoid enum issues if needed, or better: cast to DamageClass
+                severity: d.severity.toUpperCase() as any, // Convert 'Medium' -> 'MEDIUM'
+                confidence: d.confidence,
+                bbox: d.bbox,
             }));
 
             // Save damages and update inspection
