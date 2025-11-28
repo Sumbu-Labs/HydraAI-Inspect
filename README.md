@@ -1,5 +1,7 @@
 # HydraAI Inspect
 
+[![GitBook](https://img.shields.io/badge/Documentation-GitBook-blue?logo=gitbook)](https://sumbu-labs.gitbook.io/hydra-ai-inspect)
+
 AI-Powered Vehicle Inspection & Fast Tokenization Layer on [Cardano](https://cardano.org/),
 using [Hydra](https://hydra.family/head-protocol/) as a high-throughput Layer 2 for inspection workflows.
 

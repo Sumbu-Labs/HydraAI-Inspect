@@ -33,7 +33,7 @@ const Footer = () => {
             </div>
 
             <div className="flex gap-8 text-sm text-gray-400">
-               <a href="#" className="hover:text-white transition-colors">Documentation</a>
+               <a href="https://sumbu-labs.gitbook.io/hydra-ai-inspect" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Documentation</a>
                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             </div>

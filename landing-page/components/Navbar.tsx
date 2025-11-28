@@ -36,7 +36,7 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <a href="/docs" className="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">
+              <a href="https://sumbu-labs.gitbook.io/hydra-ai-inspect" target="_blank" rel="noreferrer" className="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">
                 Docs
               </a>
             </div>

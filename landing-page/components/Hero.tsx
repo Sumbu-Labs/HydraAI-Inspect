@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Play, X } from 'lucide-react';
 import { Button } from './ui/Common';
 
 const Hero = () => {
+  const [isVideoOpen, setIsVideoOpen] = React.useState(false);
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-navy-900">
 
@@ -146,11 +147,16 @@ const Hero = () => {
               variant="primary"
               icon={ArrowRight}
               className="w-full sm:w-auto"
-              onClick={() => window.open('http://localhost:3001', '_blank')}
+              onClick={() => window.open('https://app.hydra-ai.sumbu.xyz/', '_blank')}
             >
               Launch App
             </Button>
-            <Button variant="outline" icon={Play} className="w-full sm:w-auto">
+            <Button
+              variant="outline"
+              icon={Play}
+              className="w-full sm:w-auto"
+              onClick={() => setIsVideoOpen(true)}
+            >
               Watch Demo
             </Button>
           </motion.div>
@@ -286,6 +292,32 @@ const Hero = () => {
         </motion.div>
 
       </div>
+
+      {/* Video Modal */}
+      {isVideoOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" onClick={() => setIsVideoOpen(false)}>
+          <div className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setIsVideoOpen(false)}
+              className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
+            >
+              <X size={24} />
+            </button>
+            <div className="w-full h-full flex items-center justify-center text-gray-400 bg-navy-950">
+              {/* <p>Video demo link will be placed here</p> */}
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://drive.google.com/file/d/1XhIqfNY6lKyW0H3jmTb72X5CPnD2uEQB/preview"
+                title="HydraAI Demo"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
